@@ -3,4 +3,5 @@ cvbasic
 utility/notes
 utility/switch
 *.o
+*.exe
 

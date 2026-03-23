@@ -2261,6 +2261,43 @@ void compile_assignment(int is_read)
     node_delete(tree);
 }
 
+//
+// compactCV - Foo Stackers Team 2026
+//
+
+typedef enum {
+    TOKEN_UNKNOWN = 0,
+    TOKEN_PRINT,
+    TOKEN_SPRITE,
+    TOKEN_GOTO,
+    // outros comandos...
+} TokenType;
+
+typedef struct {
+    const char *name_;
+    TokenType token;
+} Keyword;
+
+Keyword keywords[] = {
+    {"PRINT", TOKEN_PRINT},
+    {"PR",    TOKEN_PRINT},
+    {"SPRITE", TOKEN_SPRITE},
+    {"SPT",    TOKEN_SPRITE},
+    {"GOTO", TOKEN_GOTO},
+    {"GT", TOKEN_GOTO}
+    // mais comandos e abreviações...
+};
+
+TokenType get_token(const char *name_) {
+    int count = sizeof(keywords) / sizeof(Keyword);
+    for (int i = 0; i < count; i++) {
+        if (strcmp(name_, keywords[i].name_) == 0) {
+            return keywords[i].token;
+        }
+    }
+    return TOKEN_UNKNOWN;
+}
+
 /*
  ** Compile a statement
  */
@@ -2274,9 +2311,14 @@ void compile_statement(int check_for_else)
             last_is_return = 0;
           
             /*
-             ** CVBasic core language
+             ** CVBasic core language // ROD
              */
-            if (strcmp(name, "GOTO") == 0) {
+
+             // Traduz o comando atual para token
+            TokenType token = get_token(name);
+            
+           // if (strcmp(name, "GOTO") == 0) {
+           if (token == TOKEN_GOTO) {
                 get_lex();
                 if (lex != C_NAME) {
                     emit_error("bad syntax for GOTO");
@@ -3858,7 +3900,8 @@ void compile_statement(int check_for_else)
                 }
                 node_delete(port);
                 node_delete(value);
-            } else if (strcmp(name, "PRINT") == 0) {
+            //} else if (strcmp(name, "PRINT") == 0) {
+            } else if (token == TOKEN_PRINT) {
                 int label;
                 int label2;
                 int c;
