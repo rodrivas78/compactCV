@@ -2270,6 +2270,9 @@ typedef enum {
     TOKEN_PRINT,
     TOKEN_SPRITE,
     TOKEN_GOTO,
+    TOKEN_DEFINE,
+    TOKEN_GOSUB,
+    TOKEN_ELSE
     // outros comandos...
 } TokenType;
 
@@ -2282,9 +2285,15 @@ Keyword keywords[] = {
     {"PRINT", TOKEN_PRINT},
     {"PR",    TOKEN_PRINT},
     {"SPRITE", TOKEN_SPRITE},
-    {"SPT",    TOKEN_SPRITE},
+    {"SP",    TOKEN_SPRITE},
     {"GOTO", TOKEN_GOTO},
-    {"GT", TOKEN_GOTO}
+    {"GT", TOKEN_GOTO},
+    {"DEFINE", TOKEN_DEFINE},
+    {"DF", TOKEN_DEFINE},
+    {"GOSUB", TOKEN_GOSUB},
+    {"GS", TOKEN_GOSUB},
+    {"ELSE", TOKEN_ELSE},
+    {"EL", TOKEN_ELSE}
     // mais comandos e abreviações...
 };
 
